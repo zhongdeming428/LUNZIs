@@ -52,8 +52,8 @@ import './Carousel.css';
         if (config.urls.length !== imgs.length) throw new TypeError('urls 配置项的长度必须与图片数量相匹配！')
         else {
           for (let i=0; i<imgs.length; i++) {
-            imgs[i].addEventListener('click', function() {
-              window.open(config.urls[i]);
+            imgs[i].addEventListener('mouseup', function(e) {
+              if (e.clientX === mouseX) window.open(config.urls[i]);
             });
           }
         }
