@@ -61,8 +61,8 @@ import './Carousel.css';
     },
     timeDuration() {
       config.timeDuration = config.timeDuration === void 0 ? 2000 : config.timeDuration;
-      div.style.transition = 'unset';
-      div.style.transition = `all ${(+config.timeDuration) / 1000}s`;
+      imgs.forEach(img => img.style.transition = 'unset');
+      imgs.forEach(img => img.style.transition = `all ${(+config.timeDuration) / 1000}s`);
     }
   };
   function carousel(selector, options) {
@@ -104,13 +104,14 @@ import './Carousel.css';
   function goPrev() {
     if (cur >= 1) {
       cur--;
-      div.style.transform = `translateX(-${cur*el.offsetWidth}px)`;
+      imgs[cur].style.width = `${el.offsetWidth}px`;
     }
   }
   function goNext() {
     if (cur < imgs.length - 1) {
       cur++;
-      div.style.transform = `translateX(-${cur*el.offsetWidth}px)`;
+      imgs[cur].style.width = `${el.offsetWidth}px`;
+      imgs[cur - 1].style.width = '0px';
     }
   }
   function swipeStart(e) {
@@ -139,9 +140,10 @@ import './Carousel.css';
         goNext();
       } else {
         cur = 0;
-        div.style.transition = 'unset';
-        div.style.transform = 'translateX(0)';
-        div.style.transition = `all ${+(config.timeDuration) / 1000}s`;
+        // div.style.transition = 'unset';
+        // div.style.transform = 'translateX(0)';
+        // div.style.transition = `all ${+(config.timeDuration) / 1000}s`;
+        imgs[0].style.width = `${el.offsetWidth}px`;
       }
     }, 2000);
   }
