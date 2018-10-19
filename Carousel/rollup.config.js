@@ -5,11 +5,11 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
 
 export default {
-  entry: 'Carousel.js',
+  entry: './src/Carousel.js',
   output: {
-    name: 'Carousel.min.js'
+    name: './dist/Carousel.min.js'
   },
-  dest: 'Carousel.min.js',
+  dest: './dist/Carousel.min.js',
   format: 'iife',
   plugins: [
     postcss(),
@@ -20,11 +20,11 @@ export default {
     babel({
       exclude: 'node_modules'
     }),
-    terser(),
+    // terser(),
     commonjs({
       // non-CommonJS modules will be ignored, but you can also
       // specifically include/exclude files
-      include: ['Carousel.js'],  // Default: undefined
+      include: ['./src/Carousel.js'],  // Default: undefined
       // search for files other than .js files (must already
       // be transpiled by a previous plugin!)
       extensions: [ '.js', '.coffee' ],  // Default: [ '.js' ]

@@ -58,6 +58,11 @@ import './Carousel.css';
           }
         }
       }
+    },
+    timeDuration() {
+      config.timeDuration = config.timeDuration === void 0 ? 2000 : config.timeDuration;
+      div.style.transition = 'unset';
+      div.style.transition = `all ${(+config.timeDuration) / 1000}s`;
     }
   };
   function carousel(selector, options) {
@@ -74,8 +79,8 @@ import './Carousel.css';
       for (let key in style) {
         el.style[key] = style[key];
       }
-      for (let key in options) {
-        strategies[key] && strategies[key]();
+      for (let key in strategies) {
+        strategies[key]();
       }
       lazyLoad(options.imgs);
     }
@@ -136,7 +141,7 @@ import './Carousel.css';
         cur = 0;
         div.style.transition = 'unset';
         div.style.transform = 'translateX(0)';
-        div.style.transition = 'all 2s';
+        div.style.transition = `all ${+(config.timeDuration) / 1000}s`;
       }
     }, 2000);
   }

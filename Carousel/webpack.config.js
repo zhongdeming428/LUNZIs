@@ -1,10 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, './Carousel.test.js'),
+  entry: path.resolve(__dirname, './test/Carousel.test.js'),
   output: {
     filename: 'Carousel.test.min.js',
-    path: __dirname
+    path: path.resolve(__dirname, './test/')
   },
   mode: 'development',
   module: {

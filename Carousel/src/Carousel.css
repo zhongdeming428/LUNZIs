@@ -18,6 +18,3 @@
 .carousel-right {
   right: 0;
 }
-.carousel > div {
-  transition: all 2s;
-}

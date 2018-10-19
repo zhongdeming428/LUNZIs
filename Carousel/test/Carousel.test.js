@@ -1,4 +1,4 @@
-import carousel from './Carousel.min';
+import carousel from '../dist/Carousel.min';
 
 // console.log(carousel);
 carousel('.carousel', {
