@@ -26,7 +26,11 @@ import './Carousel.css';
         imgEl.style.float = 'left';
         imgs.push(imgEl);
       });
+      imgs.push(imgs[0]);
+      imgs.unshift(imgs[imgs.length - 1]);
       div.appendChild(fragment);
+      div.prepend(imgs[imgs.length - 1]);
+      div.appendChild(imgs[0]);
       el.appendChild(div);
       div.style.height = '100%';
       div.style.width = el.offsetWidth * config['imgs'].length + 'px';
@@ -44,25 +48,27 @@ import './Carousel.css';
         attachBtnEvent();
       }
     },
-    autoSwipe() {
-      if (config.autoSwipe) setAuto();
-    },
     urls() {
       if (config.urls instanceof Array) {
-        if (config.urls.length !== imgs.length) throw new TypeError('urls 配置项的长度必须与图片数量相匹配！')
+        if (config.urls.length !== imgs.length - 2) throw new TypeError('urls 配置项的长度必须与图片数量相匹配！')
         else {
-          for (let i=0; i<imgs.length; i++) {
+          imgs.forEach((img, i) => {
+            if (i === 0 || i === imgs.length - 1) return;
             imgs[i].addEventListener('mouseup', function(e) {
               if (e.clientX === mouseX) window.open(config.urls[i]);
             });
-          }
+          });
         }
       }
     },
     timeDuration() {
       config.timeDuration = config.timeDuration === void 0 ? 2000 : config.timeDuration;
-      div.style.transition = 'unset';
+      // div.style.transition = 'unset';
       div.style.transition = `all ${(+config.timeDuration) / 1000}s`;
+    },
+    // ...
+    autoSwipe() {
+      if (config.autoSwipe) setAuto();
     }
   };
   function carousel(selector, options) {
@@ -89,12 +95,12 @@ import './Carousel.css';
     window.document.querySelector('.carousel-left').addEventListener('click', function() {
       window.clearInterval(timer);
       goPrev();
-      if (config.autoSwipe) timer1 = window.setTimeout(setAuto, 2000);
+      if (config.autoSwipe) timer1 = window.setTimeout(setAuto, config.timeDuration);
     });
     window.document.querySelector('.carousel-right').addEventListener('click', function() {
       window.clearInterval(timer);
       goNext();
-      if (config.autoSwipe) timer1 = window.setTimeout(setAuto, 2000);
+      if (config.autoSwipe) timer1 = window.setTimeout(setAuto, config.timeDuration);
     });
   }
   function attachSwipeEvent() {
@@ -105,12 +111,26 @@ import './Carousel.css';
     if (cur >= 1) {
       cur--;
       div.style.transform = `translateX(-${cur*el.offsetWidth}px)`;
+    } else {
+      cur = imgs.length - 1;
+      div.style.transition = "all 0s";
+      div.style.transform = `translateX(-${cur*el.offsetWidth}px)`;
+      window.setTimeout(function() {
+        div.style.transition = `all ${+(config.timeDuration) / 1000}s`;
+      }, config.timeDuration);
     }
   }
   function goNext() {
     if (cur < imgs.length - 1) {
       cur++;
       div.style.transform = `translateX(-${cur*el.offsetWidth}px)`;
+    } else {
+      cur = 0;
+      div.style.transition = "all 0s";
+      div.style.transform = 'translateX(0)';
+      window.setTimeout(function() {
+        div.style.transition = `all ${+(config.timeDuration) / 1000}s`;
+      }, config.timeDuration);
     }
   }
   function swipeStart(e) {
@@ -135,15 +155,8 @@ import './Carousel.css';
   function setAuto() {
     window.clearTimeout(timer1);
     timer = window.setInterval(function() {
-      if (cur < imgs.length - 1) {
-        goNext();
-      } else {
-        cur = 0;
-        div.style.transition = 'unset';
-        div.style.transform = 'translateX(0)';
-        div.style.transition = `all ${+(config.timeDuration) / 1000}s`;
-      }
-    }, 2000);
+      goNext();
+    }, config.timeDuration);
   }
   if (typeof exports != 'undefined' && !exports.nodeType) {
     if (typeof module != 'undefined' && !module.nodeType && module.exports) {
