@@ -21,6 +21,7 @@ export default {
       exclude: 'node_modules'
     }),
     // terser(),
+    // plugin for uglifying ES6
     commonjs({
       // non-CommonJS modules will be ignored, but you can also
       // specifically include/exclude files

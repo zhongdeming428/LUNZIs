@@ -3,18 +3,25 @@
 }
 .carousel-left,
 .carousel-right {
-  content: '';
-  width: 20px;
-  height: 20px;
-  display: block;
-  border-radius: 10px;
+  width: 0;
+  height: 0;
   position: absolute;
+  border: 40px solid transparent;
   top: 50%;
-  margin: 4px;
+  opacity: 0.5;
+  cursor: pointer;
   transform: translateY(-50%);
-  background-color: aliceblue;
+  transition: margin 1s;
   z-index: 99;
 }
 .carousel-right {
   right: 0;
+}
+.carousel-left {
+  border-right: 20px solid aliceblue;
+  margin-left: -70px;
+}
+.carousel-right {
+  margin-right: -70px;
+  border-left: 20px solid aliceblue;
 }

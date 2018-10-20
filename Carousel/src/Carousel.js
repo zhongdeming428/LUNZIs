@@ -105,6 +105,16 @@ import './Carousel.css';
   function attachSwipeEvent() {
     div.addEventListener('mousedown', swipeStart);
     div.addEventListener('mouseup', swipeEnd);
+    div.addEventListener('mouseover', function() {
+      window.document.querySelector('.carousel-left').style.marginLeft = '-15px';
+      window.document.querySelector('.carousel-right').style.marginRight = '-15px';
+    });
+    div.addEventListener('mouseleave', function() {
+      window.setTimeout(function() {
+        window.document.querySelector('.carousel-left').style.marginLeft = '-70px';
+        window.document.querySelector('.carousel-right').style.marginRight = '-70px';
+      }, 2000);
+    });
   }
   function goPrev() {
     if (cur > 1) {
@@ -130,7 +140,10 @@ import './Carousel.css';
       div.style.transform = `translateX(0px)`;
       window.setTimeout(function() {
         div.style.transition = 'all ' + config.timeDuration/1000 + 's';
-        if (config.autoSwipe) setAuto();
+        if (config.autoSwipe) {
+          setAuto();
+          goNext();
+        }
       }, 100);
     }
   }
