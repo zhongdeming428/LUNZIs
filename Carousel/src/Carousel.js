@@ -17,20 +17,19 @@ import './Carousel.css';
     imgs() {
       var fragment = window.document.createDocumentFragment();
       div = window.document.createElement('div');
-      config['imgs'].forEach((img, i) => {
+      config.imgs.unshift(config.imgs[config.imgs.length - 1]);
+      config.imgs.push(config.imgs[1]);
+      config.imgs.forEach((img, i) => {
         let imgEl = window.document.createElement('img');
         if (i < 3) imgEl.src = img;
         fragment.appendChild(imgEl);
         imgEl.style.width = el.offsetWidth + 'px';
         imgEl.style.height = '100%';
         imgEl.style.float = 'left';
+        imgEl.draggable = false;
         imgs.push(imgEl);
       });
-      imgs.push(imgs[0]);
-      imgs.unshift(imgs[imgs.length - 1]);
       div.appendChild(fragment);
-      div.prepend(imgs[imgs.length - 1]);
-      div.appendChild(imgs[0]);
       el.appendChild(div);
       div.style.height = '100%';
       div.style.width = el.offsetWidth * config['imgs'].length + 'px';
@@ -108,29 +107,31 @@ import './Carousel.css';
     div.addEventListener('mouseup', swipeEnd);
   }
   function goPrev() {
-    if (cur >= 1) {
+    if (cur > 1) {
       cur--;
       div.style.transform = `translateX(-${cur*el.offsetWidth}px)`;
     } else {
-      cur = imgs.length - 1;
+      cur = imgs.length - 2;
       div.style.transition = "all 0s";
       div.style.transform = `translateX(-${cur*el.offsetWidth}px)`;
       window.setTimeout(function() {
         div.style.transition = `all ${+(config.timeDuration) / 1000}s`;
-      }, config.timeDuration);
+        if (config.autoSwipe) setAuto();
+      }, 100);
     }
   }
   function goNext() {
-    if (cur < imgs.length - 1) {
+    if (cur < imgs.length - 2) {
       cur++;
       div.style.transform = `translateX(-${cur*el.offsetWidth}px)`;
     } else {
       cur = 0;
-      div.style.transition = "all 0s";
-      div.style.transform = 'translateX(0)';
+      div.style.transition = 'all 0s';
+      div.style.transform = `translateX(0px)`;
       window.setTimeout(function() {
-        div.style.transition = `all ${+(config.timeDuration) / 1000}s`;
-      }, config.timeDuration);
+        div.style.transition = 'all ' + config.timeDuration/1000 + 's';
+        if (config.autoSwipe) setAuto();
+      }, 100);
     }
   }
   function swipeStart(e) {
@@ -154,6 +155,7 @@ import './Carousel.css';
   }
   function setAuto() {
     window.clearTimeout(timer1);
+    window.clearInterval(timer);
     timer = window.setInterval(function() {
       goNext();
     }, config.timeDuration);

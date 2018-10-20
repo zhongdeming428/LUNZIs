@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     .carousel {
-      width: 100px;
-      height: 50px;
+      width: 500px;
+      height: 250px;
     }
   </style>
 </head>
@@ -17,11 +17,12 @@
   <script src="./Carousel.min.js"></script>
   <script>
     window.carousel('.carousel', {
-      imgs: ['a', 'b', 'c', 'd'],
-      urls: ['#','#','#','#'],
+      imgs: ['http://i1.letvimg.com/lc05_qmt/201710/15/17/00/defzxn4eqx6m/169.jpg','http://img.mp.itc.cn/upload/20161020/8a8a49fcc094473b96460973aa3b59fe_th.png','http://www.sxdaily.com.cn/NMediaFile/2013/1105/SXRB201311051455000090242434446.jpg','http://news.xinhuanet.com/sports/2017-10/15/1121806284_15080784732771n.jpg'],
+      urls: ['http://i1.letvimg.com/lc05_qmt/201710/15/17/00/defzxn4eqx6m/169.jpg','http://img.mp.itc.cn/upload/20161020/8a8a49fcc094473b96460973aa3b59fe_th.png','http://www.sxdaily.com.cn/NMediaFile/2013/1105/SXRB201311051455000090242434446.jpg','http://news.xinhuanet.com/sports/2017-10/15/1121806284_15080784732771n.jpg'],
       draggable: true,
       showBtn: true,
-      autoSwipe: true
+      autoSwipe: true,
+      timeDuration: 4000
     });
   </script>
 </body>
