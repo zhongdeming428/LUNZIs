@@ -20,7 +20,7 @@ export default {
     babel({
       exclude: 'node_modules'
     }),
-    // terser(),
+    terser(),
     // plugin for uglifying ES6
     commonjs({
       // non-CommonJS modules will be ignored, but you can also

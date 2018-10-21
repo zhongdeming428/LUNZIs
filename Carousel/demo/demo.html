@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>carousel demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" media="screen" href="./demo.css" />
+	</head>
+	<body>
+		<div>
+			<div class="header">
+				<h1>Carousel Demo</h1>
+			</div>
+			<div class="content">
+				<div id="carousel"></div>
+				<div class="code">
+					<form>
+						<label for="draggable">draggable:</label><input type="checkbox" checked="checked" id="draggable"><br><br>
+						<label for="showBtn">showBtn:</label><input type="checkbox" checked="checked" id="showBtn"><br><br>
+						<label for="hideBtn">hideBtn:</label><input type="checkbox" checked="checked" id="hideBtn"><br><br>
+						<label for="autoSwipe">autoSwipe:</label><input type="checkbox" checked="checked" id="autoSwipe"><br><br>
+						<label for="timeDuration">timeDuration:</label><input type="text" placeholder="4000" id="timeDuration">
+					</form>
+					<button onclick="run()">run</button>
+				</div>
+			</div>
+		</div>
+		<script src="../dist/Carousel.min.js"></script>
+		<script>
+			carousel = new Carousel('#carousel', {
+				imgs: ['http://i1.letvimg.com/lc05_qmt/201710/15/17/00/defzxn4eqx6m/169.jpg','http://img.mp.itc.cn/upload/20161020/8a8a49fcc094473b96460973aa3b59fe_th.png','http://www.sxdaily.com.cn/NMediaFile/2013/1105/SXRB201311051455000090242434446.jpg','http://news.xinhuanet.com/sports/2017-10/15/1121806284_15080784732771n.jpg'],
+				urls: ['http://i1.letvimg.com/lc05_qmt/201710/15/17/00/defzxn4eqx6m/169.jpg','http://img.mp.itc.cn/upload/20161020/8a8a49fcc094473b96460973aa3b59fe_th.png','http://www.sxdaily.com.cn/NMediaFile/2013/1105/SXRB201311051455000090242434446.jpg','http://news.xinhuanet.com/sports/2017-10/15/1121806284_15080784732771n.jpg'],
+				draggable: true,
+				showBtn: true,
+				autoSwipe: true,
+				hideBtn: true,
+				timeDuration: 2000
+			});
+			function run() {
+				var options = {
+					imgs: ['http://i1.letvimg.com/lc05_qmt/201710/15/17/00/defzxn4eqx6m/169.jpg','http://img.mp.itc.cn/upload/20161020/8a8a49fcc094473b96460973aa3b59fe_th.png','http://www.sxdaily.com.cn/NMediaFile/2013/1105/SXRB201311051455000090242434446.jpg','http://news.xinhuanet.com/sports/2017-10/15/1121806284_15080784732771n.jpg'],
+					urls: ['http://i1.letvimg.com/lc05_qmt/201710/15/17/00/defzxn4eqx6m/169.jpg','http://img.mp.itc.cn/upload/20161020/8a8a49fcc094473b96460973aa3b59fe_th.png','http://www.sxdaily.com.cn/NMediaFile/2013/1105/SXRB201311051455000090242434446.jpg','http://news.xinhuanet.com/sports/2017-10/15/1121806284_15080784732771n.jpg'],
+				};
+				var nodes = window.document.querySelectorAll('.code > form > input');
+				for (var i = 0; i < nodes.length; i++) {
+					if (nodes[i].type === 'checkbox') {
+						options[nodes[i].id] = nodes[i].checked;
+					} else {
+						options['timeDuration'] = +nodes[i].value === 0 ? 4000 : +nodes[i].value;
+					}
+				}
+				console.log(options);
+				carousel.setOptions(options);
+			}
+			window.run = run;
+		</script>
+	</body>
+</html>

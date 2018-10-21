@@ -1,7 +1,7 @@
-import carousel from '../dist/Carousel.min';
+import Carousel from '../dist/Carousel.min';
 
 // console.log(carousel);
-carousel('.carousel', {
+new Carousel('.carousel', {
   imgs: ['a', 'b', 'c', 'd'],
   urls: ['#','#','#','#'],
   draggable: true,
