@@ -1,8 +1,8 @@
 {
-  "name": "Carousel",
+  "name": "quick-carousel",
   "version": "1.0.0",
   "description": "",
-  "main": "Carousel.js",
+  "main": "dist/Carousel.min.js",
   "scripts": {
     "test": "webpack",
     "build": "rollup -c"
