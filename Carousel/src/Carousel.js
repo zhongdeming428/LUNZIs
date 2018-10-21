@@ -217,7 +217,7 @@ import './Carousel.css';
     if (typeof module != 'undefined' && !module.nodeType && module.exports) {
       exports = module.exports = Carousel;
     }
-    exports.carousel = Carousel;
+    exports.Carousel = Carousel;
   } else {
     window.Carousel = Carousel;
   }
